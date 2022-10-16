@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef UI_H
-#   define UI_H
+#ifndef __UI_H__
+#define __UI_H__
 
 #include <iostream>
 #include <vector>
@@ -21,7 +21,7 @@ public:
     // full constructor
     UIElement(const sf::Vector2i pos, const sf::Vector2u size, sf::Texture& tex);
 
-    // destructor
+    // virtual destructor
     virtual ~UIElement();
 
     // getters
@@ -62,10 +62,11 @@ public:
 
 protected:
     std::vector<UIElement> _elements;
+    // * TODO change up slightly how drawing is done by using an intermediate surface
     std::weak_ptr<sf::RenderTarget> _win;
 
 private:
 
 };
 
-#endif
+#endif // __UI_H__
