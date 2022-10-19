@@ -5,3 +5,7 @@
 # executable
 
 bin
+
+# gdb debug file
+
+a.out

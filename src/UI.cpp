@@ -6,6 +6,17 @@ UIElement::UIElement(const sf::Vector2i pos, const sf::Vector2u size) : _pos(pos
 
 UIElement::UIElement(const sf::Vector2i pos, const sf::Vector2u size, sf::Texture& tex) : _tex(tex) {
     UIElement(pos, size);
+
+    sf::Vector2f texSize = (sf::Vector2f)_tex.getSize();
+    std::cout << texSize << std::endl;
+
+    _sprite.setTexture(_tex);
+    _sprite.setPosition((sf::Vector2f)_pos);
+    
+    float scale_x = _size.x / texSize.x;
+    float scale_y = _size.y / texSize.y;
+
+    _sprite.setScale(scale_x, scale_y);
 }
 
 void UIElement::loadTexture(std::string filename) {

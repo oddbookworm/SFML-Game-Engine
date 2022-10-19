@@ -9,6 +9,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "utility.h"
+
 // intended to be subclassed for a specific style of UI Element
 // should be instantiatiable for something generic, but relatively
 // limited in that everything has to be manually crafted

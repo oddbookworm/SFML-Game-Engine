@@ -1,19 +1,23 @@
 #include "UI.h"
 #include "utility.h"
+#include "ResourceManager.h"
 
 int main() {
     auto window = std::make_shared<sf::RenderWindow>(sf::VideoMode(500, 500), "Hello");
 
     UI ui(window);
+    ResourceManager manager;
+    auto tex = manager.getTexture("dumb.png");
 
     UIElement elem1(sf::Vector2i(100, 100), sf::Vector2u(50, 50));
-    elem1.loadTexture("cowcar.png");
+    elem1.loadTexture("assets/images/missing_texture.png");
 
     UIElement elem2(sf::Vector2i(100, 250), sf::Vector2u(100, 50));
     elem2.loadTexture("cowcar.png");
 
-    UIElement elem3(sf::Vector2i(400, 400), sf::Vector2u(75, 20));
-    elem3.loadTexture("cowcar.png");
+    // ! Somehow a segfault is happening here
+    UIElement elem3(sf::Vector2i(400, 400), sf::Vector2u(75, 20), (*tex));
+    // elem3.loadTexture("cowcar.png");
     
     ui.addElement(elem1);
     ui.addElement(elem2);
