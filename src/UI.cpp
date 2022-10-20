@@ -4,7 +4,7 @@ UIElement::UIElement() {}
 
 UIElement::UIElement(const sf::Vector2i pos, const sf::Vector2u size) : _pos(pos), _size(size) {}
 
-UIElement::UIElement(const sf::Vector2i pos, const sf::Vector2u size, sf::Texture& tex) : _tex(tex) {
+UIElement::UIElement(const sf::Vector2i pos, const sf::Vector2u size, sf::Texture tex) : _tex(tex) {
     UIElement(pos, size);
 
     sf::Vector2f texSize = (sf::Vector2f)_tex.getSize();

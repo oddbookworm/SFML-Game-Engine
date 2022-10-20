@@ -21,7 +21,7 @@ public:
     // constructor that defines a position and size, but no image data
     UIElement(const sf::Vector2i pos, const sf::Vector2u size);
     // full constructor
-    UIElement(const sf::Vector2i pos, const sf::Vector2u size, sf::Texture& tex);
+    UIElement(const sf::Vector2i pos, const sf::Vector2u size, sf::Texture tex);
 
     // virtual destructor
     virtual ~UIElement();

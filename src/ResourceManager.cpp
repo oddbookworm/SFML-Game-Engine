@@ -3,13 +3,13 @@
 ResourceManager::ResourceManager() {}
 
 bool ResourceManager::addTexture(std::string filename) {
-    std::cout << filename << "\n";
-    sf::Texture tex;
-    if (!tex.loadFromFile(filename)) {
+    auto tex = std::make_shared<sf::Texture>();
+    if (!tex->loadFromFile(filename)) {
         return false;
     }
 
-    _textures.emplace(filename, std::make_shared<sf::Texture>(tex));
+    std::cout << filename << "\n";
+    _textures.emplace(filename, tex);
     return true;
 }
 
@@ -37,7 +37,8 @@ std::shared_ptr<sf::Texture> ResourceManager::getTexture(std::string filename) {
     if (!keyExists<std::string, std::shared_ptr<sf::Texture>>(_textures, filename)) {
         if (!addTexture(filename)) {
             std::cout << "Texture failed to load, using placeholder texture!\n";
-            addTexture("/home/andrew/Projects/SFML_Game_Engine/cowcar.png");
+            addTexture("cowcar.png");
+            return _textures["cowcar.png"];
         }
     }
 
