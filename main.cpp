@@ -10,13 +10,12 @@ int main() {
     auto tex = manager.getTexture("bad.png");
 
     UIElement elem1(sf::Vector2i(100, 100), sf::Vector2u(50, 50));
-    elem1.loadTexture("assets/images/missing_texture.png");
+    elem1.loadTexture("cowcar.png");
 
     UIElement elem2(sf::Vector2i(100, 250), sf::Vector2u(100, 50));
     elem2.loadTexture("cowcar.png");
 
-    std::cout << (tex == nullptr) << std::endl;
-    UIElement elem3(sf::Vector2i(400, 400), sf::Vector2u(75, 20), *tex);
+    UIElement elem3(sf::Vector2i(400, 400), sf::Vector2u(75, 20), tex);
     // elem3.loadTexture("cowcar.png");
     
     ui.addElement(elem1);

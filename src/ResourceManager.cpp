@@ -2,7 +2,7 @@
 
 ResourceManager::ResourceManager() {}
 
-bool ResourceManager::addTexture(std::string filename) {
+bool ResourceManager::addTexture(const std::string& filename) {
     auto tex = std::make_shared<sf::Texture>();
     if (!tex->loadFromFile(filename)) {
         return false;
@@ -13,7 +13,7 @@ bool ResourceManager::addTexture(std::string filename) {
     return true;
 }
 
-bool ResourceManager::addSoundBuffer(std::string filename) {
+bool ResourceManager::addSoundBuffer(const std::string& filename) {
     std::shared_ptr<sf::SoundBuffer> sndbuf;
     if (!sndbuf->loadFromFile(filename)) {
         return false;
@@ -23,7 +23,7 @@ bool ResourceManager::addSoundBuffer(std::string filename) {
     return true;
 }
 
-bool ResourceManager::addFont(std::string filename) {
+bool ResourceManager::addFont(const std::string& filename) {
     std::shared_ptr<sf::Font> font;
     if (!font->loadFromFile(filename)) {
         return false;
@@ -33,12 +33,12 @@ bool ResourceManager::addFont(std::string filename) {
     return true;
 }
 
-std::shared_ptr<sf::Texture> ResourceManager::getTexture(std::string filename) {
+std::shared_ptr<sf::Texture> ResourceManager::getTexture(const std::string& filename) {
     if (!keyExists<std::string, std::shared_ptr<sf::Texture>>(_textures, filename)) {
         if (!addTexture(filename)) {
             std::cout << "Texture failed to load, using placeholder texture!\n";
-            addTexture("cowcar.png");
-            return _textures["cowcar.png"];
+            addTexture("assets/images/missing_texture.png");
+            return _textures["assets/images/missing_texture.png"];
         }
     }
 

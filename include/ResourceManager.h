@@ -17,18 +17,18 @@ class ResourceManager {
 public:
     ResourceManager();
 
-    std::shared_ptr<sf::Texture> getTexture(std::string filename);
-    sf::SoundBuffer getSoundBuffer(std::string filename);
-    sf::Font getFont(std::string filename);
+    std::shared_ptr<sf::Texture> getTexture(const std::string& filename);
+    sf::SoundBuffer getSoundBuffer(const std::string& filename);
+    sf::Font getFont(const std::string& filename);
 
 private:
     std::unordered_map<std::string, std::shared_ptr<sf::Texture>> _textures;
     std::unordered_map<std::string, std::shared_ptr<sf::SoundBuffer>> _sounds;
     std::unordered_map<std::string, std::shared_ptr<sf::Font>> _fonts;
 
-    bool addTexture(std::string filename);
-    bool addSoundBuffer(std::string filename);
-    bool addFont(std::string filename);
+    bool addTexture(const std::string& filename);
+    bool addSoundBuffer(const std::string& filename);
+    bool addFont(const std::string& filename);
 };
 
 #endif // __RESOURCEMANAGER_H__

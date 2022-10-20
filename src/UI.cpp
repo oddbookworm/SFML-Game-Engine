@@ -4,45 +4,41 @@ UIElement::UIElement() {}
 
 UIElement::UIElement(const sf::Vector2i pos, const sf::Vector2u size) : _pos(pos), _size(size) {}
 
-UIElement::UIElement(const sf::Vector2i pos, const sf::Vector2u size, sf::Texture tex) : _tex(tex) {
-    UIElement(pos, size);
+UIElement::UIElement(const sf::Vector2i pos, const sf::Vector2u size, std::shared_ptr<sf::Texture> tex) : _pos(pos), _size(size), _tex(tex) {
 
-    sf::Vector2f texSize = (sf::Vector2f)_tex.getSize();
-    std::cout << texSize << std::endl;
+    loadTexture();
+}
 
-    _sprite.setTexture(_tex);
+void UIElement::loadTexture() {
+    _tex->setSmooth(_smooth);
+
+    sf::Vector2f texSize = (sf::Vector2f)_tex->getSize();
+
+    _sprite.setTexture(*_tex);
     _sprite.setPosition((sf::Vector2f)_pos);
     
     float scale_x = _size.x / texSize.x;
     float scale_y = _size.y / texSize.y;
 
     _sprite.setScale(scale_x, scale_y);
+    std::cout << _sprite.getScale() << std::endl;
 }
 
-void UIElement::loadTexture(std::string filename) {
+void UIElement::loadTexture(const std::string& filename) {
+    _tex = std::make_shared<sf::Texture>();
     if (filename.length() == 0) {
         throw std::runtime_error("Cannot load texture from empty filename");
     }
 
-    if (!_tex.loadFromFile(filename)) {
+    if (!_tex->loadFromFile(filename)) {
         std::cout << filename << " failed to load into a texture!\n";
         return;
     }
 
-    _tex.setSmooth(_smooth);
-
-    sf::Vector2f texSize = (sf::Vector2f)_tex.getSize();
-
-    _sprite.setTexture(_tex);
-    _sprite.setPosition((sf::Vector2f)_pos);
-    
-    float scale_x = _size.x / texSize.x;
-    float scale_y = _size.y / texSize.y;
-
-    _sprite.setScale(scale_x, scale_y);
+    loadTexture();
 }
 
-void UIElement::loadTexture(std::string filename, bool smooth) {
+void UIElement::loadTexture(const std::string& filename, bool smooth) {
     _smooth = smooth;
     loadTexture(filename);
 }

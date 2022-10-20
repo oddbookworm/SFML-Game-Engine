@@ -21,7 +21,7 @@ public:
     // constructor that defines a position and size, but no image data
     UIElement(const sf::Vector2i pos, const sf::Vector2u size);
     // full constructor
-    UIElement(const sf::Vector2i pos, const sf::Vector2u size, sf::Texture tex);
+    UIElement(const sf::Vector2i pos, const sf::Vector2u size, std::shared_ptr<sf::Texture> tex);
 
     // virtual destructor
     virtual ~UIElement();
@@ -29,11 +29,12 @@ public:
     // getters
     sf::Vector2i getPos() const;
     sf::Vector2u getSize() const;
-    sf::Texture getTex() const;
+    std::shared_ptr<sf::Texture> getTex() const;
 
     // creating texture and sprite
-    void loadTexture(std::string filename);
-    void loadTexture(std::string filename, bool smooth);
+    void loadTexture();
+    void loadTexture(const std::string& filename);
+    void loadTexture(const std::string& filename, bool smooth);
 
     // drawing
     virtual void draw(std::weak_ptr<sf::RenderTarget> _win);
@@ -45,7 +46,7 @@ protected:
     
     // texture
     sf::Sprite _sprite; // nts: sprites only reference a texture, they do not store pixel data
-    sf::Texture _tex;
+    std::shared_ptr<sf::Texture> _tex;
     bool _smooth = false;
 
 private:
