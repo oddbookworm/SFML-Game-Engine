@@ -8,13 +8,12 @@ bool ResourceManager::addTexture(const std::string& filename) {
         return false;
     }
 
-    std::cout << filename << "\n";
     _textures.emplace(filename, tex);
     return true;
 }
 
 bool ResourceManager::addSoundBuffer(const std::string& filename) {
-    std::shared_ptr<sf::SoundBuffer> sndbuf;
+    auto sndbuf = std::make_shared<sf::SoundBuffer>();
     if (!sndbuf->loadFromFile(filename)) {
         return false;
     }
@@ -24,7 +23,7 @@ bool ResourceManager::addSoundBuffer(const std::string& filename) {
 }
 
 bool ResourceManager::addFont(const std::string& filename) {
-    std::shared_ptr<sf::Font> font;
+    auto font = std::make_shared<sf::Font>();
     if (!font->loadFromFile(filename)) {
         return false;
     }
@@ -43,4 +42,55 @@ std::shared_ptr<sf::Texture> ResourceManager::getTexture(const std::string& file
     }
 
     return _textures[filename];
+}
+
+std::shared_ptr<sf::SoundBuffer> ResourceManager::getSoundBuffer(const std::string& filename) {
+    if (!keyExists<std::string, std::shared_ptr<sf::SoundBuffer>>(_sounds, filename)) {
+        if (!addSoundBuffer(filename)) {
+            std::cout << "Sound failed to load, using placeholder sound!\n";
+            addSoundBuffer("assets/sounds/sound.wav");
+            return _sounds["assets/sounds/sound.wav"];
+        }
+    }
+
+    return _sounds[filename];
+}
+
+std::shared_ptr<sf::Font> ResourceManager::getFont(const std::string& filename) {
+    if (!keyExists<std::string, std::shared_ptr<sf::Font>>(_fonts, filename)) {
+        if (!addFont(filename)) {
+            std::cout << "Font failed to load, using placeholder font!\n";
+            addFont("assets/fonts/FuzzyBubbles-Bold.ttf");
+            return _fonts["assets/fonts/FuzzyBubbles-Bold.ttf"];
+        }
+    }
+
+    return _fonts[filename];
+}
+
+void ResourceManager::delTexture(const std::string& filename) {
+    if (!keyExists<std::string, std::shared_ptr<sf::Texture>>(_textures, filename)) {
+        std::cout << "Cannot delete texture that does not exist!\n";
+        return;
+    }
+    
+    _textures.erase(filename);
+}
+
+void ResourceManager::delSoundBuffer(const std::string& filename) {
+    if (!keyExists<std::string, std::shared_ptr<sf::SoundBuffer>>(_sounds, filename)) {
+        std::cout << "Cannot delete sound that does not exist!\n";
+        return;
+    }
+    
+    _sounds.erase(filename);
+}
+
+void ResourceManager::delFont(const std::string& filename) {
+    if (!keyExists<std::string, std::shared_ptr<sf::Font>>(_fonts, filename)) {
+        std::cout << "Cannot delete font that does not exist!\n";
+        return;
+    }
+    
+    _fonts.erase(filename);
 }

@@ -21,7 +21,6 @@ void UIElement::loadTexture() {
     float scale_y = _size.y / texSize.y;
 
     _sprite.setScale(scale_x, scale_y);
-    std::cout << _sprite.getScale() << std::endl;
 }
 
 void UIElement::loadTexture(const std::string& filename) {
