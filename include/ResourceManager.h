@@ -13,6 +13,10 @@
 
 #include "utility.h"
 
+/**
+ * Utility class for managing textures, soundbuffers, and fonts. Stores unordered_maps
+ * of filenames associated with shared_ptr's of the corresponding SFML object
+*/
 class ResourceManager {
 public:
     ResourceManager();

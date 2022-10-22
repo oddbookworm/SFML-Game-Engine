@@ -41,8 +41,8 @@ void UIElement::loadTexture(const std::string& filename, bool smooth) {
     loadTexture(filename);
 }
 
-void UIElement::draw(std::shared_ptr<sf::RenderTexture> _win) {
-    _win->draw(_sprite);
+void UIElement::draw(std::shared_ptr<sf::RenderTexture> _target) {
+    _target->draw(_sprite);
 }
 
 sf::Vector2i UIElement::getPos() const {

@@ -1,5 +1,5 @@
 #ifndef __UTILITY_H__
-#define __UTILITY_H__
+#define     __UTILITY_H__
 
 #include <iostream>
 #include <unordered_map>
