@@ -88,8 +88,28 @@ private:
     std::unordered_map<std::string, std::shared_ptr<sf::SoundBuffer>> _sounds;
     std::unordered_map<std::string, std::shared_ptr<sf::Font>> _fonts;
 
+    /**
+     * Loads and inserts a texture loaded from a file into the _textures map.
+     * 
+     * @param filename the name of the file to be loaded
+     * @return a boolean that indicates if the load was successful
+    */
     bool addTexture(const std::string& filename);
+
+    /**
+     * Loads and inserts a sound loaded from a file into the _sounds map
+     * 
+     * @param filename the name of the file to be loaded
+     * @return a boolean that indicates if the load was successful
+    */
     bool addSoundBuffer(const std::string& filename);
+
+    /**
+     * Loads and inserts a font loaded from a file into the _fonts map.
+     * 
+     * @param filename the name of the file to be loaded
+     * @return a boolean that indicates if the load was successful
+    */
     bool addFont(const std::string& filename);
 };
 
