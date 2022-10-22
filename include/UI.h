@@ -37,7 +37,7 @@ public:
     void loadTexture(const std::string& filename, bool smooth);
 
     // drawing
-    virtual void draw(std::weak_ptr<sf::RenderTarget> _win);
+    virtual void draw(std::shared_ptr<sf::RenderTexture> _win);
 
 protected:
     // general values
@@ -65,7 +65,7 @@ public:
 
 protected:
     std::vector<UIElement> _elements;
-    // * TODO change up slightly how drawing is done by using an intermediate surface
+    std::shared_ptr<sf::RenderTexture> _surf;
     std::weak_ptr<sf::RenderTarget> _win;
 
 private:

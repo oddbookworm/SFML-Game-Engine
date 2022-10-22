@@ -5,7 +5,6 @@ UIElement::UIElement() {}
 UIElement::UIElement(const sf::Vector2i pos, const sf::Vector2u size) : _pos(pos), _size(size) {}
 
 UIElement::UIElement(const sf::Vector2i pos, const sf::Vector2u size, std::shared_ptr<sf::Texture> tex) : _pos(pos), _size(size), _tex(tex) {
-
     loadTexture();
 }
 
@@ -42,9 +41,8 @@ void UIElement::loadTexture(const std::string& filename, bool smooth) {
     loadTexture(filename);
 }
 
-void UIElement::draw(std::weak_ptr<sf::RenderTarget> _win) {
-    auto window = _win.lock();
-    window->draw(_sprite);
+void UIElement::draw(std::shared_ptr<sf::RenderTexture> _win) {
+    _win->draw(_sprite);
 }
 
 sf::Vector2i UIElement::getPos() const {
@@ -61,7 +59,12 @@ void UI::addElement(const UIElement& elem) {
     _elements.push_back(elem);
 }
 
-UI::UI(std::weak_ptr<sf::RenderTarget> win) : _win(win) {}
+UI::UI(std::weak_ptr<sf::RenderTarget> win) : _win(win) {
+    _surf = std::make_shared<sf::RenderTexture>();
+    std::shared_ptr<sf::RenderTarget> winPtr = _win.lock();
+    sf::Vector2u size = winPtr->getSize();
+    _surf->create(size.x, size.y);    
+}
 
 std::vector<UIElement> UI::getElements() const {
     return _elements;
@@ -69,6 +72,10 @@ std::vector<UIElement> UI::getElements() const {
 
 void UI::draw() const {
     for (auto elem : _elements) {
-        elem.draw(_win);
+        elem.draw(_surf);
+        _surf->display();
+
+        auto window = _win.lock();
+        window->draw(sf::Sprite(_surf->getTexture()));
     }
 }
